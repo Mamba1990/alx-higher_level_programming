@@ -2,7 +2,7 @@
 
 if __name__ == "__main__":
     """Disply  number of and list of arguments."""
-        import sys
+    import sys
 
     i = len(sys.argv) - 1
     if i == 0:
