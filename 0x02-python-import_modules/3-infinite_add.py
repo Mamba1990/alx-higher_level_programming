@@ -6,5 +6,5 @@ if __name__ == "__main__":
 
     add = 0
     for j in range(len(sys.argv) - 1):
-    add += int(sys.argv[j + 1])
-    print("{}".format(t))
+        add += int(sys.argv[j + 1])
+        print("{}".format(t))
