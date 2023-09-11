@@ -5,11 +5,8 @@ Represents the MyList class
 
 
 class MyList(list):
-    """The subclass of list"""
-    def __init__(self):
-        """initializing the object"""
-        super().__init__()
+    """Implementation sorted printing for the built-in list class."""
 
     def print_sorted(self):
-        """returns the sorted list"""
+        """Returns a list in sorted ascending order."""
         print(sorted(self))
