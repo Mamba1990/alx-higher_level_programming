@@ -1,16 +1,26 @@
 #!/usr/bin/python3
-""" Module that contains class Base """
+
+""" Represents the Base class"""
 import json
 import csv
 import os.path
 
 
 class Base:
-    """ Class Base """
+    """ Defines the class Base.
+
+    Private Class Attributes:
+        __nb_object (int): The instantiated Bases'.
+    """
+
     __nb_objects = 0
 
     def __init__(self, id=None):
-        """ Initializes instances """
+        """ Initializing the instances of the class Base.
+
+        Args:
+            id (int): The new Base's identity.
+        """
         if id is not None:
             self.id = id
         else:
@@ -19,118 +29,152 @@ class Base:
 
     @staticmethod
     def to_json_string(list_dictionaries):
-        """ List to JSON string """
+        """Defines list to JSON string
+
+        Args:
+            list_dictionaries (list): dictionaries'.
+        """
         if list_dictionaries is None or list_dictionaries == "[]":
             return "[]"
         return json.dumps(list_dictionaries)
 
     @classmethod
     def save_to_file(cls, list_objs):
-        """ Save object in a file """
+        """ Saves the object in a file
+
+        Args:
+            list_objs (list): The inherited Base instances'.
+        """
         filename = "{}.json".format(cls.__name__)
-        list_dic = []
+        listDic = []
 
         if not list_objs:
             pass
         else:
-            for i in range(len(list_objs)):
-                list_dic.append(list_objs[i].to_dictionary())
+            for k in range(len(list_objs)):
+                listDic.append(list_objs[k].to_dictionary())
 
-        lists = cls.to_json_string(list_dic)
+        _lists = cls.to_json_string(listDic)
 
-        with open(filename, 'w') as f:
-            f.write(lists)
+        with open(filename, 'w') as fi:
+            fi.write(_lists)
 
     @staticmethod
     def from_json_string(json_string):
-        """ JSON string to dictionary """
+        """Deserializes JSON string to dictionary .
+
+        Args:
+            json_string (str): A JSON str representing of a dicts' list.
+        Returns:
+            json_string is None or empty - an empty list.
+            Otherwise - list represented by json_string.
+        """
         if not json_string:
             return []
         return json.loads(json_string)
 
     @classmethod
     def create(cls, **dictionary):
-        """ Create an instance """
+        """ Creates an instance from a dictionary of attributes.
+
+        Args:
+            **dictionary (dict): Key/value pairing of attributes
+            to be initialized.
+        """
         if cls.__name__ == "Rectangle":
-            new = cls(10, 10)
+            _new = cls(10, 10)
         else:
-            new = cls(10)
-        new.update(**dictionary)
-        return new
+            _new = cls(10)
+        _new.update(**dictionary)
+        return _new
 
     @classmethod
     def load_from_file(cls):
-        """ Returns a list of instances """
+        """ Returns a list of instances a file of JSON strings.
+
+        Returns:
+            file doesn't exist - empty list.
+            Otherwise - list of instantiated classes.
+        """
         filename = "{}.json".format(cls.__name__)
 
         if os.path.exists(filename) is False:
             return []
 
-        with open(filename, 'r') as f:
-            list_str = f.read()
+        with open(filename, 'r') as fi:
+            listStr = fi.read()
 
-        list_cls = cls.from_json_string(list_str)
-        list_ins = []
+        listCls = cls.from_json_string(listStr)
+        listIns = []
 
-        for index in range(len(list_cls)):
-            list_ins.append(cls.create(**list_cls[index]))
+        for idx in range(len(listCls)):
+            listIns.append(cls.create(**listCls[idx]))
 
-        return list_ins
+        return listIns
 
     @classmethod
     def save_to_file_csv(cls, list_objs):
-        """ Method that saves a CSV file """
+        """saves list of objects to  CSV file .
+
+         Args:
+            list_objs (list): The inherited Base instances' list.
+        """
         filename = "{}.csv".format(cls.__name__)
 
         if cls.__name__ == "Rectangle":
-            list_dic = [0, 0, 0, 0, 0]
-            list_keys = ['id', 'width', 'height', 'x', 'y']
+            listDic = [0, 0, 0, 0, 0]
+            listKeys = ['id', 'width', 'height', 'x', 'y']
         else:
-            list_dic = ['0', '0', '0', '0']
-            list_keys = ['id', 'size', 'x', 'y']
+            listDic = ['0', '0', '0', '0']
+            listKeys = ['id', 'size', 'x', 'y']
 
-        matrix = []
+        mat = []
 
         if not list_objs:
             pass
         else:
-            for obj in list_objs:
-                for kv in range(len(list_keys)):
-                    list_dic[kv] = obj.to_dictionary()[list_keys[kv]]
-                matrix.append(list_dic[:])
+            for ob in list_objs:
+                for kv in range(len(listKeys)):
+                    listDic[kv] = ob.to_dictionary()[listKeys[kv]]
+                mat.append(listDic[:])
 
-        with open(filename, 'w') as writeFile:
-            writer = csv.writer(writeFile)
-            writer.writerows(matrix)
+        with open(filename, 'w') as write_File:
+            writer = csv.writer(write_File)
+            writer.writerows(mat)
 
     @classmethod
     def load_from_file_csv(cls):
-        """ Method that loads a CSV file """
+        """loads list of classes instantiated from a CSV file.
+
+        Returns:
+            the file doesn't exist - empty list.
+            Otherwise - list of the instantiated classes.
+        """
         filename = "{}.csv".format(cls.__name__)
 
         if os.path.exists(filename) is False:
             return []
 
-        with open(filename, 'r') as readFile:
-            reader = csv.reader(readFile)
-            csv_list = list(reader)
+        with open(filename, 'r') as read_File:
+            _reader = csv.reader(read_File)
+            csvList = list(_reader)
 
         if cls.__name__ == "Rectangle":
-            list_keys = ['id', 'width', 'height', 'x', 'y']
+            listKeys = ['id', 'width', 'height', 'x', 'y']
         else:
-            list_keys = ['id', 'size', 'x', 'y']
+            listKeys = ['id', 'size', 'x', 'y']
 
-        matrix = []
+        mat = []
 
-        for csv_elem in csv_list:
-            dict_csv = {}
-            for kv in enumerate(csv_elem):
-                dict_csv[list_keys[kv[0]]] = int(kv[1])
-            matrix.append(dict_csv)
+        for csv_el in csvList:
+            dictCsv = {}
+            for kv in enumerate(csv_el):
+                dictCsv[listKeys[kv[0]]] = int(kv[1])
+            mat.append(dictCsv)
 
-        list_ins = []
+        listIns = []
 
-        for index in range(len(matrix)):
-            list_ins.append(cls.create(**matrix[index]))
+        for idx in range(len(mat)):
+            listIns.append(cls.create(**mat[idx]))
 
-        return list_ins
+        return listIns

@@ -1,15 +1,28 @@
 #!/usr/bin/python3
-""" Module that contains class Rectangle,
+"""Represents the class  Rectangle,
 inheritance of class Base
 """
 from models.base import Base
 
 
 class Rectangle(Base):
-    """ Class Rectangle """
+    """Defines Rectangle class."""
 
     def __init__(self, width, height, x=0, y=0, id=None):
-        """ Initializes instances """
+        """ Initializing new instances.
+
+        Args:
+            width (int): The new Rectangle's width.
+            height (int): The new Rectangle's height.
+            x (int): The x coordinate.
+            y (int): The y coordinate.
+            id (int): The new Rectangle's identity.
+        Raises:
+            TypeError: If none of width or height is an int.
+            ValueError: If either width or height <= 0.
+            TypeError: none of x or y is not an int.
+            ValueError: either of x or y < 0.
+        """
         self.width = width
         self.height = height
         self.x = x
@@ -18,12 +31,12 @@ class Rectangle(Base):
 
     @property
     def width(self):
-        """ width getter """
+        """ width's getter """
         return self.__width
 
     @width.setter
     def width(self, value):
-        """ width setter """
+        """ width's setter """
         if type(value) is not int:
             raise TypeError("width must be an integer")
         if value <= 0:
@@ -32,12 +45,12 @@ class Rectangle(Base):
 
     @property
     def height(self):
-        """ height getter """
+        """ height's getter """
         return self.__height
 
     @height.setter
     def height(self, value):
-        """ height setter """
+        """ height's setter """
         if type(value) is not int:
             raise TypeError("height must be an integer")
         if value <= 0:
@@ -46,12 +59,12 @@ class Rectangle(Base):
 
     @property
     def x(self):
-        """ x getter """
+        """ x's getter """
         return self.__x
 
     @x.setter
     def x(self, value):
-        """ x setter """
+        """ x's setter """
         if type(value) is not int:
             raise TypeError("x must be an integer")
         if value < 0:
@@ -60,12 +73,12 @@ class Rectangle(Base):
 
     @property
     def y(self):
-        """ y getter """
+        """ y's getter """
         return self.__y
 
     @y.setter
     def y(self, value):
-        """ y setter """
+        """ y's setter """
         if type(value) is not int:
             raise TypeError("y must be an integer")
         if value < 0:
@@ -73,43 +86,53 @@ class Rectangle(Base):
         self.__y = value
 
     def area(self):
-        """ returns the area of the rectangle object """
+        """ Computes the area of the rectangle object """
         return self.width * self.height
 
     def display(self):
-        """ displays a rectangle """
+        """Displays a rectangle """
         rectangle = self.y * "\n"
-        for i in range(self.height):
+        for k in range(self.height):
             rectangle += (" " * self.x)
             rectangle += ("#" * self.width) + "\n"
 
         print(rectangle, end='')
 
     def __str__(self):
-        """ str special method """
-        str_rectangle = "[Rectangle] "
-        str_id = "({}) ".format(self.id)
-        str_xy = "{}/{} - ".format(self.x, self.y)
-        str_wh = "{}/{}".format(self.width, self.height)
+        """The special method of a string """
+        strRectangle = "[Rectangle] "
+        strId = "({}) ".format(self.id)
+        strXy = "{}/{} - ".format(self.x, self.y)
+        strWh = "{}/{}".format(self.width, self.height)
 
-        return str_rectangle + str_id + str_xy + str_wh
+        return strRectangle + strId + strXy + strWh
 
     def update(self, *args, **kwargs):
-        """ update method """
+        """ updates the rectangle.
+
+        Args:
+            *args (ints):th values of the new attribute.
+                - first argument is the id attribute
+                - second argument is the width attribute
+                - thirth argument is the height attribute
+                - fourth argument is the x attribute
+                - fifth argument is the y attribute
+            **kwargs (dict): key/value pairing of attributes.
+        """
         if args is not None and len(args) is not 0:
-            list_atr = ['id', 'width', 'height', 'x', 'y']
-            for i in range(len(args)):
-                setattr(self, list_atr[i], args[i])
+            listAtr = ['id', 'width', 'height', 'x', 'y']
+            for k in range(len(args)):
+                setattr(self, listAtr[k], args[k])
         else:
             for key, value in kwargs.items():
                 setattr(self, key, value)
 
     def to_dictionary(self):
-        """ method that returs a dictionary with properties """
-        list_atr = ['id', 'width', 'height', 'x', 'y']
-        dict_res = {}
+        """Displays a dictionary with properties """
+        listAtr = ['id', 'width', 'height', 'x', 'y']
+        dictRes = {}
 
-        for key in list_atr:
-            dict_res[key] = getattr(self, key)
+        for key in listAtr:
+            dictRes[key] = getattr(self, key)
 
-        return dict_res
+        return dictRes
