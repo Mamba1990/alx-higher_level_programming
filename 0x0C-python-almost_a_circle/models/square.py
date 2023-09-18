@@ -50,7 +50,7 @@ class Square(Rectangle):
 
     def update(self, *args, **kwargs):
         """ updates the square """
-        if args != None and len(args) != 0:
+        if args is not None and len(args) != 0:
             listAtr = ['id', 'size', 'x', 'y']
             for k in range(len(args)):
                 if listAtr[k] == 'size':
