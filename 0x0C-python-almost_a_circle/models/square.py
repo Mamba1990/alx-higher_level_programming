@@ -1,56 +1,63 @@
 #!/usr/bin/python3
-""" Module that contains class Square,
+""" Represents Square class,
 inheritance of class Rectangle
 """
 from models.rectangle import Rectangle
 
 
 class Square(Rectangle):
-    """ Class Rectangle """
+    """Defines the Rectangle class"""
 
     def __init__(self, size, x=0, y=0, id=None):
-        """ Initializes instances """
+        """ Initializing new instances
+
+        Args:
+            size (int): The new Square's size.
+            x (int): The x coordinate.
+            y (int): The y coordinate.
+            id (int): The new Square's identity.
+        """
         super().__init__(size, size, x, y, id)
 
     def __str__(self):
-        """ str special method """
-        str_square = "[Square] "
-        str_id = "({}) ".format(self.id)
-        str_xy = "{}/{} - ".format(self.x, self.y)
-        str_wh = "{}/{}".format(self.width, self.height)
+        """Defines the special method of a string """
+        strSquare = "[Square] "
+        strId = "({}) ".format(self.id)
+        strXy = "{}/{} - ".format(self.x, self.y)
+        strWh = "{}/{}".format(self.width, self.height)
 
-        return str_square + str_id + str_xy + str_wh
+        return strSquare + strId + strXy + strWh
 
     @property
     def size(self):
-        """ Getter size """
+        """ Defines Getter size """
         return self.width
 
     @size.setter
     def size(self, value):
-        """ Setter size """
+        """Defines Setter size """
         self.width = value
         self.height = value
 
     def __str__(self):
-        """ str special method """
-        str_rectangle = "[Square] "
-        str_id = "({}) ".format(self.id)
-        str_xy = "{}/{} - ".format(self.x, self.y)
-        str_size = "{}".format(self.size)
+        """Defines the special method of a string """
+        strRectangle = "[Square] "
+        strId = "({}) ".format(self.id)
+        strXy = "{}/{} - ".format(self.x, self.y)
+        strSize = "{}".format(self.size)
 
-        return str_rectangle + str_id + str_xy + str_size
+        return strRectangle + strId + strXy + strSize
 
     def update(self, *args, **kwargs):
-        """ update method """
-        if args is not None and len(args) is not 0:
-            list_atr = ['id', 'size', 'x', 'y']
-            for i in range(len(args)):
-                if list_atr[i] == 'size':
-                    setattr(self, 'width', args[i])
-                    setattr(self, 'height', args[i])
+        """ updates the square """
+        if args != None and len(args) != 0:
+            listAtr = ['id', 'size', 'x', 'y']
+            for k in range(len(args)):
+                if listAtr[k] == 'size':
+                    setattr(self, 'width', args[k])
+                    setattr(self, 'height', args[k])
                 else:
-                    setattr(self, list_atr[i], args[i])
+                    setattr(self, listAtr[k], args[k])
         else:
             for key, value in kwargs.items():
                 if key == 'size':
@@ -60,14 +67,14 @@ class Square(Rectangle):
                     setattr(self, key, value)
 
     def to_dictionary(self):
-        """ Returns a dictionary with attributes """
-        list_atr = ['id', 'size', 'x', 'y']
-        dict_res = {}
+        """Displays a dictionary with attributes """
+        listAtr = ['id', 'size', 'x', 'y']
+        dictRes = {}
 
-        for key in list_atr:
+        for key in listAtr:
             if key == 'size':
-                dict_res[key] = getattr(self, 'width')
+                dictRes[key] = getattr(self, 'width')
             else:
-                dict_res[key] = getattr(self, key)
+                dictRes[key] = getattr(self, key)
 
-        return dict_res
+        return dictRes
