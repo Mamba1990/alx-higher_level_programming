@@ -1,2 +1,2 @@
---Script listing all rows of the table first_table in my MySQL server.
+-- Script lists all rows of the table first_table in my MySQL server.
 SELECT * FROM `first_table`;
