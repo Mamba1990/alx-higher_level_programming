@@ -1,4 +1,4 @@
--- task 101
+-- task 101 INNER JOIN
 SELECT name
 FROM tv_genres
 WHERE name NOT IN
